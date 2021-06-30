@@ -1,0 +1,24 @@
+
+html, body, ul, li, img, a, p { padding: 0; margin: 0; }
+li { list-style: none; }
+img { border: none; width: 680px; height: 344px;}
+body { background: #ececec; padding-top: 50px; }
+
+#content { width: 970px; height: 344px; position: relative; margin: 0 auto; overflow: hidden; }
+
+.prev_div { width: 130px; height: 72px; position: absolute; top: 128px; left: 92px; z-index: 5; background: red; filter: alpha(opacity=0); opacity: 0; cursor: pointer; }
+.next_div { width: 130px; height: 72px; position: absolute; top: 128px; right: 92px; z-index: 5; background: red; filter: alpha(opacity=0); opacity: 0; cursor: pointer; }
+
+#content ul { width: 970px; height: 344px; position: absolute; top: 0; left: 0; z-index: 1; }
+#content li { position: absolute; }
+
+#content .line { border: 4px solid #fff; width: 672px; height: 336px; position: absolute; top: 0; left: 50%; margin-left: -340px; z-index: 3; }
+
+#content .item_0 { top: -104px; left: 0; z-index: 1; filter: alpha(opacity=0); opacity: 0; }
+#content .item_1 { top: 104px; left: 0; z-index: 2; filter: alpha(opacity=60); opacity: 0.6; }
+#content .item_2 { top: 43px; left: 50px; z-index: 3; filter: alpha(opacity=80); opacity: 0.8; }
+#content .item_3 { top: 0; left: 145px; z-index: 4; }
+#content .item_4 { top: 43px; right: 50px; z-index: 3; filter: alpha(opacity=80); opacity: 0.8; }
+#content .item_5 { top: 104px; right: 0; z-index: 2; filter: alpha(opacity=60); opacity: 0.6; }
+#content .item_6 { top: -104px; right: 0; z-index: 1; filter: alpha(opacity=0); opacity: 0; }
+

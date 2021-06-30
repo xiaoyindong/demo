@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>滚动效果</title>
+	<link href="style.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="move.js"></script>
+	<script>
+
+		window.onload = function () {
+
+			var oPrevDiv = document.getElementsByClassName('prev_div')[0];
+			var oNextDiv = document.getElementsByClassName('next_div')[0];
+
+			var aLi = document.getElementsByTagName('li');
+
+			var arr = [];
+
+			for (var i = 0; i < aLi.length; i++) {
+
+				var oImg = aLi[i].getElementsByTagName('img')[0];
+
+				arr.push([parseInt(getStyle(aLi[i], 'left')), parseInt(getStyle(aLi[i], 'top')), getStyle(aLi[i], 'opacity') * 100, getStyle(aLi[i], 'zIndex'), oImg.width]);
+
+			}
+
+			oPrevDiv.onclick = function () {  //左
+
+				arr.push(arr[0]);
+				arr.shift();
+
+				for (var i = 0; i < aLi.length; i++) {
+
+					var oImg = aLi[i].getElementsByTagName('img')[0];
+
+					aLi[i].style.zIndex = arr[i][3];
+
+					move(aLi[i], { left: arr[i][0], top: arr[i][1], opacity: arr[i][2] });
+
+					move(oImg, { width: arr[i][4] });
+
+				}
+
+			};
+
+			oNextDiv.onclick = function () {  //右
+				arr.unshift(arr[arr.length - 1]);
+				arr.pop();
+
+				for (var i = 0; i < aLi.length; i++) {
+
+					var oImg = aLi[i].getElementsByTagName('img')[0];
+
+					aLi[i].style.zIndex = arr[i][3];
+
+					move(aLi[i], { left: arr[i][0], top: arr[i][1], opacity: arr[i][2] });
+
+					move(oImg, { width: arr[i][4] });
+
+				}
+			};
+
+			function getStyle(obj, attr) {
+				if (obj.currentStyle) {
+					return obj.currentStyle[attr];
+				}
+				else {
+					return getComputedStyle(obj, false)[attr];
+				}
+			}
+
+		};
+
+	</script>
+</head>
+<body>
+	<div id="content">
+		<div class="prev_div"></div>
+		<div class="next_div"></div>
+		<ul>
+			<li class="item_0">
+				<img src="https://img.zcool.cn/community/01cc635cbdecbca801214168c7fa83.png@1280w_1l_2o_100sh.png">
+			</li>
+			<li class="item_1">
+				<img src="https://img.zcool.cn/community/018b535cbdecbca801214168fe547d.png@1280w_1l_2o_100sh.png">
+			</li>
+			<li class="item_2">
+				<img src="https://img.zcool.cn/community/01231d5cbdf17aa801214168294a22.jpg@1280w_1l_2o_100sh.jpg">
+			</li>
+			<li class="item_3">
+				<img src="https://img.zcool.cn/community/01f4a05cbdecbca8012141689f5b58.png@1280w_1l_2o_100sh.png">
+			</li>
+			<li class="item_4">
+				<img src="https://img.zcool.cn/community/01df655cbdf29aa801214168b005b6.jpg@1280w_1l_2o_100sh.jpg">
+			</li>
+			<li class="item_5">
+				<img src="https://img.zcool.cn/community/0166c35cbdf29ba801208f8ba065df.jpg@1280w_1l_2o_100sh.jpg">
+			</li>
+			<li class="item_6">
+				<img src="https://img.zcool.cn/community/013cdc5cbdecbda801208f8bc572cc.png@1280w_1l_2o_100sh.png">
+			</li>
+		</ul>
+	</div>
+</body>
+
+</html>
