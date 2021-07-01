@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		li {
+			list-style: none;
+		}
+
+		ul {
+			width: 600px;
+			height: 250px;
+		}
+
+		ul li {
+			width: 100px;
+			height: 100px;
+			float: left;
+			overflow: hidden;
+			margin: 10px;
+			background: url(./sinaimg.jpeg) no-repeat 0 0;
+			background-size: cover;
+		}
+
+		button {
+			display: block;
+			width: 60px;
+			margin-left: 300px;
+		}
+	</style>
+	<script type="text/javascript" src="move.js"></script>
+	<script>
+		window.onload = function () {
+			const oUl = document.getElementById('ul');
+			const button = document.querySelector('button');
+
+			// 存储运动元素位置信息
+			let arr = [];
+			function start() {
+				const aLi = oUl.getElementsByTagName('li');
+				const num = 10;
+				// 参与运动的元素个数，下标从0开始
+				let iNow = num - 1;
+				// 如果没有li
+				if (!oUl.innerHTML) {
+					// 创建num个li放在ul里面
+					for (let i = 0; i < num; i++) {
+						let oLi = document.createElement('li');
+						oUl.appendChild(oLi);
+					}
+					// 将每个li的位置存储在arr中
+					for (let i = 0; i < aLi.length; i++) {
+						arr.push([aLi[i].offsetLeft, aLi[i].offsetTop]);
+					}
+					// 循环为每个li添加定位，使用定位固定位置
+					for (let i = 0; i < aLi.length; i++) {
+						aLi[i].style.position = 'absolute';
+						aLi[i].style.left = arr[i][0] + 'px';
+						aLi[i].style.top = arr[i][1] + 'px';
+						aLi[i].style.margin = 0;
+					}
+				} else {
+					// 如果存在li则运动
+					let timer = setInterval(function () {
+						// 调用move函数
+						move(aLi[iNow], { left: 200, top: 250, opacity: 0 });
+						// iNow 是运动的li，每隔100毫秒运动一个，当为0时运动完成，清除定时器
+						if (iNow == 0) {
+							clearInterval(timer);
+							// 重置iNow
+							iNow = num - 1;
+							let timer2 = setInterval(function () {
+								// 复原li
+								move(aLi[iNow], { left: arr[iNow][0], top: arr[iNow][1], opacity: 100 });
+								// 复原完成
+								if (iNow == 0) {
+									clearInterval(timer2);
+									iNow = num - 1;
+								} else {
+									iNow--;
+								}
+							}, 100);
+						} else {
+							iNow--;
+						}
+					}, 100);
+				}
+			}
+
+			start();
+
+			button.onclick = start;
+
+		}
+
+	</script>
+</head>
+
+<body>
+	<ul id="ul"></ul>
+	<button>切换</button>
+</body>
+
+</html>
