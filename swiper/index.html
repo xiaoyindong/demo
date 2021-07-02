@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+
+		li {
+			list-style: none;
+		}
+
+		#content {
+			min-width: 1000px;
+			height: 487px;
+			position: relative;
+			overflow: hidden;
+			width: 100%;
+		}
+
+		#content ul {
+			position: absolute;
+			left: 0;
+			width: 100%;
+		}
+
+		#content ul li {
+			float: left;
+			width: 25%;
+		}
+
+		#content ul li img {
+			position: relative;
+			left: 0;
+			width: 100%;
+			width: 1920px;
+			display: block;
+		}
+	</style>
+	<script type="text/javascript" src="move.js"></script>
+	<script>
+
+		window.onload = function () {
+
+			var oDiv = document.getElementById('content');
+			var oUl = oDiv.getElementsByTagName('ul')[0];
+			var aLi = oUl.getElementsByTagName('li');
+			var aImg = oUl.getElementsByTagName('img');
+
+			var imgWidth = 1920;
+
+			var iNow = 0;
+
+			// ul宽度设置，将所有的图片并排
+			oUl.style.width = (aImg.length + 1) * imgWidth + 'px';
+
+			oUl.appendChild(aLi[0].cloneNode(true));
+
+			function toReSize() {
+				var veiwWidth = document.documentElement.clientWidth;
+				if (veiwWidth > 1000) {
+					for (var i = 0; i < aImg.length; i++) {
+						aImg[i].style.left = - (imgWidth - veiwWidth) / 2 + 'px';
+					}
+				}
+			}
+
+			toReSize();
+
+			window.onresize = function () {
+				toReSize();
+			};
+
+			setInterval(toRun, 3000);
+
+			function toRun() {
+
+				iNow++;
+
+
+				move(oUl, { left: - iNow * imgWidth }, function () {
+					if (iNow === aLi.length - 1) {
+						oUl.style.left = 0;
+						iNow = 0;
+					}
+				});
+			}
+		};
+	</script>
+</head>
+
+<body>
+	<div id="content">
+		<ul>
+			<li><img src="https://img.zcool.cn/community/01786260dd7d8e11013eaf7040f2a1.jpg" /></li>
+			<li><img src="https://img.zcool.cn/community/01cde260dd1e8a11013f4720974375.png" /></li>
+			<li><img src="https://img.zcool.cn/community/01896b60dd31b411013eaf70679d64.png" /></li>
+		</ul>
+	</div>
+</body>
+
+</html>
